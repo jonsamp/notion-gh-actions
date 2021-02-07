@@ -30,6 +30,6 @@ jobs:
           --data '{
             	 "properties": {
                 "Status": { "name" : "fixready"},
-                "GitHub URL":  [{ "type": "text", "text": { "content": "https://github.com/jonsamp/notion-gh-actions/${{ PR_NUMBER }}" }} ]
+                "GitHub URL":  [{ "type": "text", "text": { "content": "https://github.com/jonsamp/notion-gh-actions/${{ $PR_NUMBER }}" }} ]
               }
           }'
