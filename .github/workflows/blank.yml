@@ -27,13 +27,11 @@ jobs:
         id: PR
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          // Only return if PR is still open
           filterOutClosed: true
       - run: echo "Your PR is ${prNumber} and its JSON is ${prJSON}"
         if: success() && steps.PR.outputs.number
         env:
           prNumber: ${{ steps.PR.outputs.number }}
-          // JSON object with the full PR object
           prJSON: ${{ steps.PR.outputs.pr }
       - name: Update Notion Page
         run: |
@@ -42,6 +40,6 @@ jobs:
           --data '{
             	 "properties": {
                 "Status": { "name" : "fixready"},
-                "GitHub URL":  [{ "type": "text", "text": { "content": "${{ steps.findPr.outputs.pr }}" }} ]
+                "GitHub URL":  [{ "type": "text", "text": { "content": "${{ steps.PR.outputs.pr }}" }} ]
               }
           }'
