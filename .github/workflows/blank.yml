@@ -22,15 +22,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-       - uses: actions/checkout@v1
-       - uses: jwalton/gh-find-current-pr@v1
-         id: findPr
-         with:
-           github-token: ${{ secrets.GITHUB_TOKEN }}
-       - run: echo "Your PR is ${PR}"
-         if: success() && steps.findPr.outputs.number
-         env:
-           PR: ${{ steps.findPr.outputs.pr }}
+    steps:
+      - uses: actions/checkout@v1
+      # Find the PR associated with this push, if there is one.
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # This will echo "Your PR is 7", or be skipped if there is no current PR.
+      - run: echo "Your PR is ${PR}"
+        if: success() && steps.findPr.outputs.number
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
       - name: Update Notion Page
         run: |
           curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
