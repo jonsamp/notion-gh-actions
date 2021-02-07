@@ -22,17 +22,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v1
-      - uses: 8BitJonny/gh-get-current-pr@v1
-        id: PR
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          filterOutClosed: true
-      - run: echo "Your PR is ${prNumber} and its JSON is ${prJSON}"
-        if: success() && steps.PR.outputs.number
-        env:
-          prNumber: ${{ steps.PR.outputs.number }}
-          prJSON: ${{ steps.PR.outputs.pr }}
+      - name: Echo PR
+        run: |
+          PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+          echo "github ref"
+          echo $GITHUB_REF
+          echo "PR number"
+          echo $PR_NUMBER
       - name: Update Notion Page
         run: |
           curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
@@ -40,6 +36,6 @@ jobs:
           --data '{
             	 "properties": {
                 "Status": { "name" : "fixready"},
-                "GitHub URL":  [{ "type": "text", "text": { "content": "${{ steps.PR.outputs.pr }}" }} ]
+                "GitHub URL":  [{ "type": "text", "text": { "content": "${{ steps.findPr.outputs.pr }}" }} ]
               }
           }'
