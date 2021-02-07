@@ -29,10 +29,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       # This will echo "Your PR is 7", or be skipped if there is no current PR.
-      - run: echo "Your PR is ${PR}"
+      - run: echo "Your PR is ${PR} ${{ steps.findPr.outputs.pr }}"
         if: success() && steps.findPr.outputs.number
         env:
-          PR: ${{ steps.findPr.outputs.pr }}
+          PR: echo "${{ steps.findPr.outputs.pr }}"
       - name: Update Notion Page
         run: |
           curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
