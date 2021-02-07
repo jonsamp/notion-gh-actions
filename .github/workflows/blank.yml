@@ -27,11 +27,8 @@ jobs:
           curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
           -H "Content-Type: application/json" \
           --data '{
-            "parent": { "database_id": "2f7f099d-935b-421c-ba58-4e18e314b165" },
-            "properties": {
-              "title": [{ "text": { "content": "My Second Coffee (2022)" }}],
-              "Tags": [{
-                  "name": "Ethiopia"
-              }]
-            }
+            	 "properties": {
+                "Status": { "name" : "fixready"},
+                "GitHub URL":  [{ "type": "text", "text": { "content": "https://testing.com/687" }} ]
+              }
           }'
