@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Update Notion Page
         env:
-          PR_NUMBER: ${{ $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }') }}
+          PR_NUMBER: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
         run: |
           curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
           -H "Content-Type: application/json" \
