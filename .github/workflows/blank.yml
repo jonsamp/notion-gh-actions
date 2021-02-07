@@ -32,7 +32,7 @@ jobs:
         if: success() && steps.PR.outputs.number
         env:
           prNumber: ${{ steps.PR.outputs.number }}
-          prJSON: ${{ steps.PR.outputs.pr }
+          prJSON: ${{ steps.PR.outputs.pr }}
       - name: Update Notion Page
         run: |
           curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
