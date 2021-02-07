@@ -22,8 +22,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Pull Request URL
-        uses: kceb/pull-request-url-action@v2
+      - uses: kceb/pull-request-url-action@v1
+        id: pr-url
+
+      - run: echo "${{ steps.pr-url.outputs.url }}"
       - name: Update Notion Page
         run: |
           curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
