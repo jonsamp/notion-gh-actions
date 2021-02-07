@@ -22,10 +22,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: kceb/pull-request-url-action@v1
-        id: pr-url
-
-      - run: echo "${{ steps.pr-url.outputs.url }}"
+      - run: echo "${{ github.base_ref }}"
       - name: Update Notion Page
         run: |
           curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
@@ -33,6 +30,6 @@ jobs:
           --data '{
             	 "properties": {
                 "Status": { "name" : "fixready"},
-                "GitHub URL":  [{ "type": "text", "text": { "content": ${{ steps.pr-url.outputs.url }} }} ]
+                "GitHub URL":  [{ "type": "text", "text": { "content": ${{ github.base_ref }} }} ]
               }
           }'
