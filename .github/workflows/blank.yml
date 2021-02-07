@@ -40,6 +40,6 @@ jobs:
           --data '{
             	 "properties": {
                 "Status": { "name" : "fixready"},
-                "GitHub URL":  [{ "type": "text", "text": { "content": "${{ github.base_ref }}" }} ]
+                "GitHub URL":  [{ "type": "text", "text": { "content": "${{ steps.findPr.outputs.pr }}" }} ]
               }
           }'
