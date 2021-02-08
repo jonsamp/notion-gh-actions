@@ -3,32 +3,29 @@
 name: Update notion page
 
 # Controls when the action will run.
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+on: pull_request
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  update-page:
-    # The type of runner that the job will run on
+  get-info:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Update Notion Page
-        run: |
-          curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
-          -H "Content-Type: application/json" \
-          --data '{
-            	 "properties": {
-                "Status": { "name" : "fixready"},
-                "GitHub URL":  [{ "type": "text", "text": { "content": "https://github.com/jonsamp/notion-gh-actions/pull/1" }} ]
-              }
-          }'
+      - name: Get info
+        run: echo ${{ github_event_path }}
+  # # This workflow contains a single job called "build"
+  # update-page:
+  #   # The type of runner that the job will run on
+  #   runs-on: ubuntu-latest
+
+  #   # Steps represent a sequence of tasks that will be executed as part of the job
+  #   steps:
+  #     - name: Update Notion Page
+  #       run: |
+  #         curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
+  #         -H "Content-Type: application/json" \
+  #         --data '{
+  #           	 "properties": {
+  #               "Status": { "name" : "fixready"},
+  #               "GitHub URL":  [{ "type": "text", "text": { "content": "https://github.com/jonsamp/notion-gh-actions/pull/1" }} ]
+  #             }
+  #         }'
