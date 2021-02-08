@@ -7,11 +7,16 @@ on: pull_request
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  run-js:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run JS
+        run: node ./index.js
   get-info:
     runs-on: ubuntu-latest
     steps:
       - name: Get info
-        run: echo ${{ JSON.stringify(github.event) }}
+        run: echo ${{ github.event.pull_request.body }}
   # # This workflow contains a single job called "build"
   # update-page:
   #   # The type of runner that the job will run on
