@@ -2,7 +2,7 @@ const github = require('@actions/github');
 // const mockGithub = require('./mock-github.json');
 
 function run() {
-  const pullRequest = mockGithub.context.payload.pull_request;
+  const pullRequest = github.context.payload.pull_request;
   const PRBody = pullRequest.body;
   const PRHref = pullRequest.html_url;
   const urlRegex = /(https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g;
