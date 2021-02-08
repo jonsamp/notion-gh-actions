@@ -17,4 +17,4 @@ jobs:
       - name: Update Notion Task
         run: yarn && node ./index.js
         env:
-          NOTION_BOT_SECRET_KEY: secrets.NOTION_BOT_SECRET_KEY
+          NOTION_BOT_SECRET_KEY: ${{ secrets.NOTION_BOT_SECRET_KEY }}
