@@ -10,6 +10,7 @@ jobs:
   run-js:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Run JS
         run: node ./index.js
   get-info:
