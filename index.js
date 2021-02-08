@@ -19,14 +19,14 @@ function run() {
     console.log(pageId);
     console.log(PRHref);
 
-    console.log(process.env);
+    console.log(process.NOTION_BOT_SECRET_KEY);
 
     try {
       fetch(`https://api.notion.com/v1/pages/${pageId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.NOTION_BOT_SECRET_KEY}`,
+          Authorization: `Bearer ${process.NOTION_BOT_SECRET_KEY}`,
         },
         body: JSON.stringify({
           properties: {
