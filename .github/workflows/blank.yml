@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Get info
         run: echo ${{ github.event.pull_request.body }}
+        env:
+          NOTION_BOT_SECRET_KEY: secrets.NOTION_BOT_SECRET_KEY
   # # This workflow contains a single job called "build"
   # update-page:
   #   # The type of runner that the job will run on
