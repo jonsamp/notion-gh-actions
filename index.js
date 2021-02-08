@@ -9,7 +9,7 @@ function run() {
   const urls = PRBody.match(urlRegex) ?? [];
   const notionUrl = urls.find((url) => url.match('notion.so'));
 
-  console.log({ process, env, secrets });
+  // console.log({ process, env, secrets });
 
   if (notionUrl) {
     const urlParts = notionUrl.split('/');
