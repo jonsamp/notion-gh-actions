@@ -3,7 +3,17 @@
 name: Update notion page
 
 # Controls when the action will run.
-on: pull_request
+on:
+  pull_request:
+    types:
+      [
+        opened,
+        review_request_removed,
+        ready_for_review,
+        review_requested,
+        closed,
+        synchronize,
+      ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
