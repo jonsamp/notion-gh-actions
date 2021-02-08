@@ -15,12 +15,6 @@ async function run() {
     const taskParts = taskName.split('-');
     const pageId = taskParts[taskParts.length - 1];
 
-    console.log({
-      pageId,
-      PRHref,
-      key: process.env.NOTION_BOT_SECRET_KEY,
-    });
-
     try {
       const result = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
         method: 'PATCH',
