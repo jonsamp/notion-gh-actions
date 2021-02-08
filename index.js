@@ -1,5 +1,5 @@
 const github = require('@actions/github');
-// const mockGithub = require('./mock-github.json');
+const fetch = require('node-fetch');
 
 function run() {
   const pullRequest = github.context.payload.pull_request;
@@ -9,8 +9,6 @@ function run() {
   const urls = PRBody.match(urlRegex) ?? [];
   const notionUrl = urls.find((url) => url.match('notion.so'));
 
-  // console.log({ process, env, secrets });
-
   if (notionUrl) {
     const urlParts = notionUrl.split('/');
     const taskName = urlParts[urlParts.length - 1];
@@ -19,14 +17,12 @@ function run() {
     console.log(pageId);
     console.log(PRHref);
 
-    console.log(process.NOTION_BOT_SECRET_KEY);
-
     try {
       fetch(`https://api.notion.com/v1/pages/${pageId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.NOTION_BOT_SECRET_KEY}`,
+          Authorization: `Bearer ${process.env.NOTION_BOT_SECRET_KEY}`,
         },
         body: JSON.stringify({
           properties: {
