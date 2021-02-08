@@ -1,6 +1,8 @@
-function run(...args) {
+import github from '@actions/github';
+
+function run() {
   console.log('Running JS...');
-  console.log(JSON.stringify(args));
+  console.log(JSON.stringify(github));
 }
 
 run();
