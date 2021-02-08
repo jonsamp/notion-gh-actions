@@ -9,6 +9,23 @@ async function run() {
   const urls = PRBody.match(urlRegex) ?? [];
   const notionUrl = urls.find((url) => url.match('notion.so'));
 
+  let status;
+  switch (github.context.payload.action) {
+    case 'opened':
+    case 'review_request_removed':
+      status = 'in-progress';
+      break;
+    case 'ready_for_review':
+    case 'review_requested':
+      status = 'fixready';
+      break;
+    case 'closed':
+      status = 'done';
+      break;
+    default:
+      status = undefined;
+  }
+
   if (notionUrl) {
     const urlParts = notionUrl.split('/');
     const taskName = urlParts[urlParts.length - 1];
@@ -24,7 +41,7 @@ async function run() {
         },
         body: JSON.stringify({
           properties: {
-            Status: { name: 'fixready' },
+            ...(status ? { Status: { name: status } } : null),
             'GitHub URL': [{ type: 'text', text: { content: PRHref } }],
           },
         }),
