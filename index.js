@@ -19,6 +19,8 @@ function run() {
     console.log(pageId);
     console.log(PRHref);
 
+    console.log(process.env);
+
     try {
       fetch(`https://api.notion.com/v1/pages/${pageId}`, {
         method: 'POST',

@@ -11,29 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - name: Run JS
         run: yarn && node ./index.js
-  get-info:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get info
-        run: echo ${{ github.event.pull_request.body }}
         env:
           NOTION_BOT_SECRET_KEY: secrets.NOTION_BOT_SECRET_KEY
-  # # This workflow contains a single job called "build"
-  # update-page:
-  #   # The type of runner that the job will run on
-  #   runs-on: ubuntu-latest
-
-  #   # Steps represent a sequence of tasks that will be executed as part of the job
-  #   steps:
-  #     - name: Update Notion Page
-  #       run: |
-  #         curl -X PATCH "https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6" -H "Authorization: Bearer ${{secrets.NOTION_BOT_SECRET_KEY}}" \
-  #         -H "Content-Type: application/json" \
-  #         --data '{
-  #           	 "properties": {
-  #               "Status": { "name" : "fixready"},
-  #               "GitHub URL":  [{ "type": "text", "text": { "content": "https://github.com/jonsamp/notion-gh-actions/pull/1" }} ]
-  #             }
-  #         }'
