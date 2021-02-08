@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run JS
-        run: node ./index.js
+        run: yarn && node ./index.js
   get-info:
     runs-on: ubuntu-latest
     steps:
