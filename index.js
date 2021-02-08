@@ -1,7 +1,7 @@
 const github = require('@actions/github');
 const fetch = require('node-fetch');
 
-function run() {
+async function run() {
   const pullRequest = github.context.payload.pull_request;
   const PRBody = pullRequest.body;
   const PRHref = pullRequest.html_url;
@@ -18,7 +18,8 @@ function run() {
     console.log(PRHref);
 
     try {
-      fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+      console.log('MAKING A REQUEST');
+      const result = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,6 +32,7 @@ function run() {
           },
         }),
       });
+      console.log('REQUEST COMPLETE', JSON.stringify(result));
     } catch (error) {
       console.error(error);
     }
