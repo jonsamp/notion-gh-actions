@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get info
-        run: echo ${{ github.event }}
+        run: echo ${{ JSON.stringify(github.event) }}
   # # This workflow contains a single job called "build"
   # update-page:
   #   # The type of runner that the job will run on
