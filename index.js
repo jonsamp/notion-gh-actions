@@ -17,21 +17,28 @@ async function run() {
     console.log(pageId);
     console.log(PRHref);
 
+    // https://www.notion.so/expo/My-first-task-6941bdf1ed8843d2923f765558e752d6
+
     try {
       console.log('MAKING A REQUEST');
-      const result = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.NOTION_BOT_SECRET_KEY}`,
-        },
-        body: JSON.stringify({
-          properties: {
-            Status: { name: 'fixready' },
-            'GitHub URL': [{ type: 'text', text: { content: `"${PRHref}"` } }],
+      const result = await fetch(
+        `https://api.notion.com/v1/pages/6941bdf1-ed88-43d2-923f-765558e752d6`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env.NOTION_BOT_SECRET_KEY}`,
           },
-        }),
-      });
+          body: JSON.stringify({
+            properties: {
+              Status: { name: 'fixready' },
+              'GitHub URL': [
+                { type: 'text', text: { content: `"${PRHref}"` } },
+              ],
+            },
+          }),
+        }
+      );
       console.log('REQUEST COMPLETE', JSON.stringify(result));
     } catch (error) {
       console.error(error);
