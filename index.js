@@ -1,4 +1,4 @@
-import github from '@actions/github';
+const github = require('@actions/github');
 
 function run() {
   console.log('Running JS...');
